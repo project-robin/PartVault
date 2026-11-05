@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/domain/bom.ts","./src/domain/lock.ts","./src/domain/multipart.ts","./src/domain/revision.ts","./src/domain/stl.ts"],"version":"5.9.3"}

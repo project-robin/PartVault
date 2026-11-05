@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": { "composite": false, "noEmit": true },
+  "include": ["scripts/gen-openapi.mts"],
+  "files": ["scripts/gen-openapi.mts"]
+}

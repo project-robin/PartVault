@@ -1,0 +1,6 @@
+packages:
+  - apps/web
+  - services/api
+  - services/worker
+  - packages/shared
+  - infra
