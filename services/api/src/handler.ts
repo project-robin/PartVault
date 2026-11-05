@@ -126,16 +126,16 @@ export const handler = async (event: any, context?: any) => {
   logger.info("Request", { path: event.rawPath, method: event.httpMethod, requestId });
 
   try {
+    const method = event.httpMethod ?? event.requestContext?.http?.method;
+    const path = event.rawPath ?? event.requestContext?.http?.path ?? "/";
+
+    // Health (unauthenticated)
+    if (path === "/health") return json(200, { status: "ok" }, requestId);
+
     const auth = parseAuth(event);
     if (!auth) {
       return errorResponse(401, "UNAUTHORIZED", "Missing authentication", requestId);
     }
-
-    const method = event.httpMethod ?? event.requestContext?.http?.method;
-    const path = event.rawPath ?? event.requestContext?.http?.path ?? "/";
-
-    // Health
-    if (path === "/health") return json(200, { status: "ok" }, requestId);
 
     // Idempotency-Key handling for writes
     const idempHeader = event.headers?.["Idempotency-Key"] ?? event.headers?.["idempotency-key"];

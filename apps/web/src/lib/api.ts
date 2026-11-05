@@ -8,7 +8,14 @@ export async function getAuthHeaders(): Promise<Record<string, string>> {
   const headers: Record<string, string> = { "Content-Type": "application/json" };
   // In production, Amplify provides JWT; in dev, localStorage token is used
   const token = localStorage.getItem("partvault_token");
-  if (token) headers["Authorization"] = `Bearer ${token}`;
+  const role = localStorage.getItem("partvault_role") ?? "admin";
+  const email = localStorage.getItem("partvault_email") ?? "admin@demo.local";
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+    headers["x-user-sub"] = token;
+    headers["x-user-roles"] = role;
+    headers["x-user-email"] = email;
+  }
   return headers;
 }
 
